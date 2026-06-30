@@ -4,46 +4,14 @@ import React, { useMemo, useState } from 'react';
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { ControlPanel } from "@/components/layout/ControlPanel";
 import { ArrayVisualizer } from "@/components/visualizer/ArrayVisualizer";
+import { AlgorithmInfo } from "@/components/visualizer/AlgorithmInfo";
 import { useAlgorithmPlayer } from "@/hooks/useAlgorithmPlayer";
 import { AlgorithmType } from "@/components/layout/Sidebar";
-import { getBubbleSortHistory } from "@/lib/algorithms/bubbleSort";
-import { getSelectionSortHistory } from "@/lib/algorithms/selectionSort";
-import { getInsertionSortHistory } from "@/lib/algorithms/insertionSort";
-import { getMergeSortHistory } from "@/lib/algorithms/mergeSort";
-import { getQuickSortHistory } from "@/lib/algorithms/quickSort";
-import { AlgorithmHistory } from "@/lib/types";
+import { ALGORITHM_INFO } from "@/lib/data/algorithms";
 
 function generateRandomArray(length = 10, max = 100): number[] {
   return Array.from({ length }, () => Math.floor(Math.random() * max) + 10);
 }
-
-const ALGORITHM_INFO: Record<AlgorithmType, { title: string; description: string; generator: (arr: number[]) => AlgorithmHistory }> = {
-  bubble: {
-    title: "Bubble Sort",
-    description: "Bubble Sort repeatedly steps through the list, comparing adjacent elements and swapping them if they are in the wrong order.",
-    generator: getBubbleSortHistory,
-  },
-  selection: {
-    title: "Selection Sort",
-    description: "Selection Sort divides the list into a sorted and unsorted region. It repeatedly selects the smallest element from the unsorted region and swaps it with the leftmost unsorted element.",
-    generator: getSelectionSortHistory,
-  },
-  insertion: {
-    title: "Insertion Sort",
-    description: "Insertion Sort builds the final sorted array one item at a time by repeatedly taking the next element and inserting it into the correct position within the sorted portion.",
-    generator: getInsertionSortHistory,
-  },
-  merge: {
-    title: "Merge Sort",
-    description: "Merge Sort is a divide-and-conquer algorithm that splits the array in half, recursively sorts each half, and then merges the sorted halves back together.",
-    generator: getMergeSortHistory,
-  },
-  quick: {
-    title: "Quick Sort",
-    description: "Quick Sort is a divide-and-conquer algorithm that selects a 'pivot' element and partitions the array so that elements smaller than the pivot are on the left and larger on the right, then recursively sorts the partitions.",
-    generator: getQuickSortHistory,
-  },
-};
 
 export default function Home() {
   const [activeAlgorithm, setActiveAlgorithm] = useState<AlgorithmType>("bubble");
@@ -110,6 +78,9 @@ export default function Home() {
             {currentStep && <ArrayVisualizer step={currentStep} />}
           </div>
         </div>
+        
+        {/* Complexity and Info Cards */}
+        <AlgorithmInfo algorithm={currentInfo} />
       </div>
 
       <ControlPanel 
