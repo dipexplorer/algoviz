@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "AlgoViz - Interactive DSA Visualizer",
-  description: "Learn Data Structures and Algorithms interactively.",
+  title: "AlgoViz - Advanced Algorithm Visualizer",
+  description: "A holographic, futuristic data structure and algorithm visualization platform.",
 };
 
 export default function RootLayout({
@@ -23,11 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`dark ${inter.variable} ${jetBrainsMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-primary selection:text-primary-foreground">{children}</body>
+    <html lang="en" className="dark">
+      <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white selection:bg-[#00F0FF] selection:text-black min-h-screen overflow-hidden`}>
+        {children}
+      </body>
     </html>
   );
 }

@@ -25,11 +25,12 @@ export function Sidebar({ activeAlgorithm, onSelectAlgorithm }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-64 border-r bg-background/50 backdrop-blur-xl h-full flex flex-col p-4 space-y-4">
-      <Link href="/" className="flex items-center space-x-2 font-bold text-xl mb-6 hover:opacity-80 transition-opacity">
-        <Code2 className="text-primary" />
-        <span>AlgoViz</span>
+    <aside className="w-64 glass-panel border-r-0 border-r border-white/5 h-full flex flex-col p-4 space-y-4 z-40 rounded-r-2xl m-4 my-4 ml-4">
+      <Link href="/" className="flex items-center space-x-2 font-bold text-2xl mb-6 hover:opacity-80 transition-opacity tracking-tight">
+        <Code2 className="text-[#00F0FF] drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" />
+        <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50">AlgoViz</span>
       </Link>
+
       
       <nav className="flex-1 space-y-4 overflow-y-auto custom-scrollbar pr-2">
         

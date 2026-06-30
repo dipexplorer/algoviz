@@ -31,16 +31,16 @@ export const GridNode = React.memo(function GridNode({
   // Note: For extreme performance, isVisited and isPath classes are usually injected directly via DOM manipulation (Refs) in the parent component during the animation loop, bypassing React state. We set up the base classes here.
   
   let extraClassName = "";
-  if (isStart) extraClassName = "bg-green-500 rounded-sm";
-  else if (isEnd) extraClassName = "bg-red-500 rounded-sm";
-  else if (isWall) extraClassName = "bg-slate-700 border-slate-800 scale-105 rounded-sm transition-all duration-200";
-  else extraClassName = "bg-background"; // Default unvisited
+  if (isStart) extraClassName = "bg-[#39FF14] glow-lime rounded-sm z-20";
+  else if (isEnd) extraClassName = "bg-[#FF003C] glow-magenta rounded-sm z-20";
+  else if (isWall) extraClassName = "bg-[#111] border-[#333] scale-105 rounded-sm transition-all duration-200 z-10 shadow-inner";
+  else extraClassName = "bg-transparent border-white/5"; // Default unvisited
 
   return (
     <div
       id={`node-${row}-${col}`} // ID used for DOM manipulation during animation
       className={cn(
-        "w-6 h-6 border border-border/50 transition-colors", 
+        "w-6 h-6 border-r border-b transition-colors relative", 
         extraClassName
       )}
       onMouseDown={() => onMouseDown(row, col)}

@@ -156,58 +156,59 @@ export default function PathfindingVisualizer() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col h-full" onMouseLeave={handleMouseUp}>
+      <div className="flex flex-col h-full relative" onMouseLeave={handleMouseUp}>
         <header className="mb-6 flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Breadth-First Search (BFS)</h1>
-            <p className="text-muted-foreground mt-2 max-w-2xl flex items-center space-x-2">
-              <MousePointer2 size={16} className="text-primary"/> 
-              <span>Click and drag on the grid to draw walls (obstacles).</span>
+            <h1 className="text-4xl font-bold tracking-tight text-white drop-shadow-md">Breadth-First Search</h1>
+            <p className="text-white/60 mt-2 max-w-2xl flex items-center space-x-2 text-lg">
+              <MousePointer2 size={18} className="text-[#00F0FF]"/> 
+              <span>Click and drag on the grid to draw walls.</span>
             </p>
           </div>
-          <div className="flex space-x-3">
+          <div className="flex space-x-4">
             <button 
               onClick={clearBoard}
               disabled={isRunning}
-              className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors flex items-center space-x-2 disabled:opacity-50"
+              className="px-5 py-2.5 glass-panel text-white/70 hover:text-white rounded-lg hover:bg-white/5 transition-all flex items-center space-x-2 disabled:opacity-50"
             >
               <RotateCcw size={18} />
-              <span>Clear Board</span>
+              <span>Clear Grid</span>
             </button>
             <button 
               onClick={visualizeBFS}
               disabled={isRunning}
-              className="px-6 py-2 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20 flex items-center space-x-2 disabled:opacity-50"
+              className="px-6 py-2.5 bg-[#00F0FF] text-black font-bold rounded-lg hover:bg-[#00F0FF]/90 transition-all glow-cyan flex items-center space-x-2 disabled:opacity-50"
             >
               <Play size={18} />
-              <span>Visualize BFS</span>
+              <span>Run BFS</span>
             </button>
           </div>
         </header>
 
         {/* Legend */}
-        <div className="flex space-x-6 mb-4 p-3 bg-muted/20 rounded-xl border">
-          <div className="flex items-center space-x-2"><div className="w-5 h-5 bg-green-500 rounded-sm"></div><span className="text-sm">Start Node</span></div>
-          <div className="flex items-center space-x-2"><div className="w-5 h-5 bg-red-500 rounded-sm"></div><span className="text-sm">Target Node</span></div>
-          <div className="flex items-center space-x-2"><div className="w-5 h-5 bg-slate-700 border-slate-800 rounded-sm"></div><span className="text-sm">Wall Node</span></div>
-          <div className="flex items-center space-x-2"><div className="w-5 h-5 bg-primary/20 rounded-sm"></div><span className="text-sm">Visited Node</span></div>
-          <div className="flex items-center space-x-2"><div className="w-5 h-5 bg-yellow-400 rounded-sm"></div><span className="text-sm">Shortest Path</span></div>
+        <div className="flex space-x-8 mb-6 p-4 glass-card rounded-xl border-white/5">
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#39FF14] glow-lime rounded-sm"></div><span className="text-sm font-medium text-white/80">Start</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#FF003C] glow-magenta rounded-sm"></div><span className="text-sm font-medium text-white/80">Target</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#111] border border-[#333] shadow-inner rounded-sm"></div><span className="text-sm font-medium text-white/80">Wall</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#00F0FF]/30 border border-[#00F0FF]/50 rounded-sm"></div><span className="text-sm font-medium text-white/80">Visited</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#FFD700] glow-yellow rounded-sm"></div><span className="text-sm font-medium text-white/80">Shortest Path</span></div>
         </div>
 
         {/* Grid Container */}
-        <div className="flex-1 overflow-auto bg-muted/10 border rounded-2xl p-4 flex items-center justify-center min-w-max shadow-inner relative">
-            <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px_32px] z-0"></div>
+        <div className="flex-1 overflow-hidden glass-card rounded-3xl p-6 flex items-center justify-center relative shadow-2xl border-white/5">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
+            
             <div 
               ref={gridRef}
-              className="grid gap-0 z-10 p-2 bg-background/50 backdrop-blur-sm rounded-xl border shadow-xl"
-              style={{ gridTemplateColumns: \`repeat(\${NUM_COLS}, minmax(0, 1fr))\` }}
+              className="grid gap-0 z-10 p-2 glass-panel rounded-xl border border-white/10 shadow-[0_0_50px_rgba(0,240,255,0.05)]"
+              style={{ gridTemplateColumns: `repeat(${NUM_COLS}, minmax(0, 1fr))` }}
             >
               {grid.map((row, rowIdx) => (
                 row.map((node, nodeIdx) => {
                   const { row, col, isStart, isEnd, isWall } = node;
                   return (
                     <GridNode
-                      key={\`\${row}-\${col}\`}
+                      key={`${row}-${col}`}
                       row={row}
                       col={col}
                       isStart={isStart}

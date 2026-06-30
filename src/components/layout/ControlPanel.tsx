@@ -30,29 +30,29 @@ export function ControlPanel({
   };
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-background/80 backdrop-blur-2xl border rounded-full px-6 py-3 flex items-center space-x-6 shadow-2xl">
-      <button onClick={onReset} className="p-2 hover:bg-accent rounded-full transition-all text-muted-foreground hover:text-foreground">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 glass-panel rounded-full px-6 py-3 flex items-center space-x-6 z-50">
+      <button onClick={onReset} className="p-2 hover:bg-white/10 rounded-full transition-all text-white/50 hover:text-white">
         <RotateCcw size={20} />
       </button>
       
       {isPlaying ? (
-        <button onClick={onPause} className="p-3 bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full transition-all shadow-lg shadow-destructive/20">
+        <button onClick={onPause} className="p-3 bg-[#FF003C] text-black hover:bg-[#FF003C]/90 rounded-full transition-all glow-magenta">
           <Pause size={24} />
         </button>
       ) : (
-        <button onClick={onPlay} className="p-3 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full transition-all shadow-lg shadow-primary/20">
+        <button onClick={onPlay} className="p-3 bg-[#00F0FF] text-black hover:bg-[#00F0FF]/90 rounded-full transition-all glow-cyan">
           <Play size={24} className="ml-1" />
         </button>
       )}
 
-      <button onClick={onStep} className="p-2 hover:bg-accent rounded-full transition-all text-muted-foreground hover:text-foreground">
+      <button onClick={onStep} className="p-2 hover:bg-white/10 rounded-full transition-all text-white/50 hover:text-white">
         <StepForward size={20} />
       </button>
 
-      <div className="w-px h-6 bg-border mx-2"></div>
+      <div className="w-px h-6 bg-white/10 mx-2"></div>
       
       <div className="flex items-center space-x-2">
-        <span className="text-sm font-medium text-muted-foreground w-12">Speed</span>
+        <span className="text-sm font-medium text-white/50 w-12 font-mono uppercase tracking-wider text-xs">Speed</span>
         <input 
           type="range" 
           min="50" 
@@ -60,7 +60,7 @@ export function ControlPanel({
           step="50"
           value={sliderValue} 
           onChange={handleSpeedChange}
-          className="w-24 accent-primary" 
+          className="w-24 accent-[#00F0FF]" 
         />
       </div>
     </div>
