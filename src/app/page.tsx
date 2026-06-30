@@ -5,18 +5,41 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { ControlPanel } from "@/components/layout/ControlPanel";
 import { ArrayVisualizer } from "@/components/visualizer/ArrayVisualizer";
 import { useAlgorithmPlayer } from "@/hooks/useAlgorithmPlayer";
+import { AlgorithmType } from "@/components/layout/Sidebar";
 import { getBubbleSortHistory } from "@/lib/algorithms/bubbleSort";
+import { getSelectionSortHistory } from "@/lib/algorithms/selectionSort";
+import { getInsertionSortHistory } from "@/lib/algorithms/insertionSort";
+import { AlgorithmHistory } from "@/lib/types";
 
-// Generate a random array of integers
 function generateRandomArray(length = 10, max = 100): number[] {
   return Array.from({ length }, () => Math.floor(Math.random() * max) + 10);
 }
 
+const ALGORITHM_INFO: Record<AlgorithmType, { title: string; description: string; generator: (arr: number[]) => AlgorithmHistory }> = {
+  bubble: {
+    title: "Bubble Sort",
+    description: "Bubble Sort repeatedly steps through the list, comparing adjacent elements and swapping them if they are in the wrong order.",
+    generator: getBubbleSortHistory,
+  },
+  selection: {
+    title: "Selection Sort",
+    description: "Selection Sort divides the list into a sorted and unsorted region. It repeatedly selects the smallest element from the unsorted region and swaps it with the leftmost unsorted element.",
+    generator: getSelectionSortHistory,
+  },
+  insertion: {
+    title: "Insertion Sort",
+    description: "Insertion Sort builds the final sorted array one item at a time by repeatedly taking the next element and inserting it into the correct position within the sorted portion.",
+    generator: getInsertionSortHistory,
+  },
+};
+
 export default function Home() {
+  const [activeAlgorithm, setActiveAlgorithm] = useState<AlgorithmType>("bubble");
   const [array, setArray] = useState<number[]>(() => generateRandomArray(15));
   
-  // Recompute history only when the initial array changes
-  const history = useMemo(() => getBubbleSortHistory(array), [array]);
+  const currentInfo = ALGORITHM_INFO[activeAlgorithm];
+  
+  const history = useMemo(() => currentInfo.generator(array), [array, currentInfo]);
   
   const {
     currentStep,
@@ -36,14 +59,19 @@ export default function Home() {
     setArray(generateRandomArray(15));
   };
 
+  const handleSelectAlgorithm = (algo: AlgorithmType) => {
+    setActiveAlgorithm(algo);
+    setArray(generateRandomArray(15)); // Optionally regenerate array on switch
+  };
+
   return (
-    <DashboardLayout>
+    <DashboardLayout activeAlgorithm={activeAlgorithm} onSelectAlgorithm={handleSelectAlgorithm}>
       <div className="h-full flex flex-col pb-24">
         <header className="mb-6 flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Bubble Sort</h1>
+            <h1 className="text-3xl font-bold tracking-tight">{currentInfo.title}</h1>
             <p className="text-muted-foreground mt-2 max-w-2xl">
-              Bubble Sort is a simple sorting algorithm that repeatedly steps through the input list element by element, comparing the current element with the one after it, swapping their values if needed.
+              {currentInfo.description}
             </p>
           </div>
           <button 
@@ -54,11 +82,9 @@ export default function Home() {
           </button>
         </header>
         
-        {/* Visualizer Canvas */}
         <div className="flex-1 border rounded-2xl bg-muted/10 flex flex-col relative overflow-hidden shadow-inner">
           <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px_32px]"></div>
           
-          {/* Status Bar */}
           <div className="relative z-10 p-4 border-b bg-background/50 backdrop-blur-sm flex justify-between items-center">
             <div className="text-sm font-medium">
               Step {currentStepIndex + 1} / {totalSteps}
@@ -68,7 +94,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Canvas Area */}
           <div className="flex-1 relative z-10 flex items-center justify-center p-8">
             {currentStep && <ArrayVisualizer step={currentStep} />}
           </div>
