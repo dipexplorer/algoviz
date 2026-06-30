@@ -1,6 +1,5 @@
 import React from 'react';
 import { Sidebar } from './Sidebar';
-import { ControlPanel } from './ControlPanel';
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,7 +9,6 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <div className="flex-1 p-8 overflow-auto relative">
           {children}
         </div>
-        <ControlPanel />
       </main>
     </div>
   );
