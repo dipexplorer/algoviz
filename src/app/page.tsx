@@ -9,6 +9,8 @@ import { AlgorithmType } from "@/components/layout/Sidebar";
 import { getBubbleSortHistory } from "@/lib/algorithms/bubbleSort";
 import { getSelectionSortHistory } from "@/lib/algorithms/selectionSort";
 import { getInsertionSortHistory } from "@/lib/algorithms/insertionSort";
+import { getMergeSortHistory } from "@/lib/algorithms/mergeSort";
+import { getQuickSortHistory } from "@/lib/algorithms/quickSort";
 import { AlgorithmHistory } from "@/lib/types";
 
 function generateRandomArray(length = 10, max = 100): number[] {
@@ -30,6 +32,16 @@ const ALGORITHM_INFO: Record<AlgorithmType, { title: string; description: string
     title: "Insertion Sort",
     description: "Insertion Sort builds the final sorted array one item at a time by repeatedly taking the next element and inserting it into the correct position within the sorted portion.",
     generator: getInsertionSortHistory,
+  },
+  merge: {
+    title: "Merge Sort",
+    description: "Merge Sort is a divide-and-conquer algorithm that splits the array in half, recursively sorts each half, and then merges the sorted halves back together.",
+    generator: getMergeSortHistory,
+  },
+  quick: {
+    title: "Quick Sort",
+    description: "Quick Sort is a divide-and-conquer algorithm that selects a 'pivot' element and partitions the array so that elements smaller than the pivot are on the left and larger on the right, then recursively sorts the partitions.",
+    generator: getQuickSortHistory,
   },
 };
 

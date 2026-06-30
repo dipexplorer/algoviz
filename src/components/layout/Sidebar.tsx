@@ -2,7 +2,7 @@ import React from 'react';
 import { LayoutDashboard, ListTree, Code2, Network, ArrowDownUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export type AlgorithmType = "bubble" | "selection" | "insertion";
+export type AlgorithmType = "bubble" | "selection" | "insertion" | "merge" | "quick";
 
 interface SidebarProps {
   activeAlgorithm: AlgorithmType;
@@ -14,7 +14,10 @@ export function Sidebar({ activeAlgorithm, onSelectAlgorithm }: SidebarProps) {
     { id: "bubble", name: "Bubble Sort" },
     { id: "selection", name: "Selection Sort" },
     { id: "insertion", name: "Insertion Sort" },
+    { id: "merge", name: "Merge Sort" },
+    { id: "quick", name: "Quick Sort" },
   ];
+
 
   return (
     <aside className="w-64 border-r bg-background/50 backdrop-blur-xl h-full flex flex-col p-4 space-y-4">

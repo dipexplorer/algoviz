@@ -12,7 +12,7 @@ interface ArrayVisualizerProps {
 export function ArrayVisualizer({ step }: ArrayVisualizerProps) {
   if (!step) return null;
 
-  const { array, comparingIndices, swappingIndices, sortedIndices } = step;
+  const { array, comparingIndices, swappingIndices, sortedIndices, pivotIndices = [] } = step;
   const maxValue = Math.max(...array, 1); // Avoid division by zero
 
   return (
@@ -21,9 +21,11 @@ export function ArrayVisualizer({ step }: ArrayVisualizerProps) {
         const isComparing = comparingIndices.includes(index);
         const isSwapping = swappingIndices.includes(index);
         const isSorted = sortedIndices.includes(index);
+        const isPivot = pivotIndices.includes(index);
 
         let barColor = "bg-primary";
-        if (isSwapping) barColor = "bg-destructive"; // Red for swapping
+        if (isPivot) barColor = "bg-purple-500"; // Purple for pivot
+        else if (isSwapping) barColor = "bg-destructive"; // Red for swapping
         else if (isComparing) barColor = "bg-yellow-500"; // Yellow for comparing
         else if (isSorted) barColor = "bg-green-500"; // Green for sorted
 

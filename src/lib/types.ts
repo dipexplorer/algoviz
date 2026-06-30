@@ -3,6 +3,7 @@ export type AlgorithmStep = {
   comparingIndices: number[]; // Highlight yellow
   swappingIndices: number[];  // Highlight red
   sortedIndices: number[];    // Highlight green
+  pivotIndices?: number[];    // Highlight purple
   message: string;            // Explanation of what's happening
 };
 
