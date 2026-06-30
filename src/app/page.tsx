@@ -45,53 +45,53 @@ export default function Home() {
   };
 
   return (
-    <DashboardLayout activeAlgorithm={activeAlgorithm} onSelectAlgorithm={handleSelectAlgorithm}>
-      <div className="h-full flex flex-col pb-24">
-        <header className="mb-6 flex justify-between items-start">
+    <DashboardLayout activeAlgorithm={activeAlgorithm} onSelectAlgorithm={setActiveAlgorithm}>
+      <div className="flex flex-col gap-6 pb-20">
+        
+        {/* Header Area */}
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">{currentInfo.title}</h1>
-            <p className="text-muted-foreground mt-2 max-w-2xl">
-              {currentInfo.description}
-            </p>
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2">{currentInfo.title}</h1>
+            <p className="text-slate-500 max-w-2xl text-lg">{currentInfo.description}</p>
           </div>
           <button 
-            onClick={handleGenerateNew}
-            className="px-4 py-2 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/80 transition-colors"
+            onClick={() => setArray(generateRandomArray(20))}
+            className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 font-medium rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
           >
             Generate New Array
           </button>
-        </header>
+        </div>
         
-        <div className="flex-1 border rounded-2xl bg-muted/10 flex flex-col relative overflow-hidden shadow-inner">
-          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px_32px]"></div>
-          
-          <div className="relative z-10 p-4 border-b bg-background/50 backdrop-blur-sm flex justify-between items-center">
-            <div className="text-sm font-medium">
-              Step {currentStepIndex + 1} / {totalSteps}
-            </div>
-            <div className="text-sm font-medium text-primary">
-              {currentStep?.message || "Ready"}
+        {/* Visualizer Card */}
+        <div className="bento-card bg-white p-6 min-h-[500px] flex flex-col">
+          <div className="flex justify-between items-center mb-6 text-sm text-slate-500 font-medium">
+            <span>Step {currentStepIndex + 1} / {history.length}</span>
+            <div className="px-3 py-1 bg-slate-100 rounded-md">
+              {currentStep?.message || "Initial array."}
             </div>
           </div>
-
-          <div className="flex-1 relative z-10 flex items-center justify-center p-8">
+          
+          <div className="flex-1 relative flex items-center justify-center p-8 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
             {currentStep && <ArrayVisualizer step={currentStep} />}
+          </div>
+
+          {/* Integrated Control Panel */}
+          <div className="flex justify-center w-full">
+            <ControlPanel 
+              isPlaying={isPlaying}
+              onPlay={play}
+              onPause={pause}
+              onReset={reset}
+              onStep={stepForward}
+              speed={speed}
+              onSpeedChange={setSpeed}
+            />
           </div>
         </div>
         
         {/* Complexity and Info Cards */}
         <AlgorithmInfo algorithm={currentInfo} />
       </div>
-
-      <ControlPanel 
-        isPlaying={isPlaying}
-        onPlay={play}
-        onPause={pause}
-        onStep={stepForward}
-        onReset={reset}
-        speed={speed}
-        onSpeedChange={setSpeed}
-      />
     </DashboardLayout>
   );
 }

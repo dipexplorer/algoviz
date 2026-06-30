@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Outfit, JetBrains_Mono } from "next/font/google";
+import { Outfit, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const outfit = Outfit({
   variable: "--font-outfit",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -13,8 +18,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AlgoViz - Advanced Algorithm Visualizer",
-  description: "A holographic, futuristic data structure and algorithm visualization platform.",
+  title: "AlgoViz - Clean & Minimal Algorithm Visualizer",
+  description: "Learn Data Structures and Algorithms interactively with a clean interface.",
 };
 
 export default function RootLayout({
@@ -23,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${outfit.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white selection:bg-[#00F0FF] selection:text-black min-h-screen overflow-hidden`}>
+    <html lang="en">
+      <body className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-slate-50 text-slate-900 min-h-screen`}>
         {children}
       </body>
     </html>

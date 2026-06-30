@@ -23,11 +23,11 @@ export function ArrayVisualizer({ step }: ArrayVisualizerProps) {
         const isSorted = sortedIndices.includes(index);
         const isPivot = pivotIndices.includes(index);
 
-        let barColor = "bg-[#222] border-t border-white/10";
-        if (isPivot) barColor = "bg-purple-500 glow-purple text-black"; // Purple for pivot
-        else if (isSwapping) barColor = "bg-[#FF003C] glow-magenta text-black"; // Red for swapping
-        else if (isComparing) barColor = "bg-[#00F0FF] glow-cyan text-black"; // Yellow for comparing
-        else if (isSorted) barColor = "bg-[#39FF14] glow-lime text-black"; // Green for sorted
+        let barColor = "bg-blue-200 border-t border-blue-300";
+        if (isPivot) barColor = "bg-purple-500 text-white shadow-sm"; 
+        else if (isSwapping) barColor = "bg-red-500 text-white shadow-sm"; 
+        else if (isComparing) barColor = "bg-orange-400 text-white shadow-sm"; 
+        else if (isSorted) barColor = "bg-emerald-500 text-white shadow-sm";
 
         // Calculate height as a percentage of the max value
         const heightPercentage = (value / maxValue) * 100;

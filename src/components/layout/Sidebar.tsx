@@ -25,21 +25,23 @@ export function Sidebar({ activeAlgorithm, onSelectAlgorithm }: SidebarProps) {
   ];
 
   return (
-    <aside className="w-64 glass-panel border-r-0 border-r border-white/5 h-full flex flex-col p-4 space-y-4 z-40 rounded-r-2xl m-4 my-4 ml-4">
-      <Link href="/" className="flex items-center space-x-2 font-bold text-2xl mb-6 hover:opacity-80 transition-opacity tracking-tight">
-        <Code2 className="text-[#00F0FF] drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" />
-        <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50">AlgoViz</span>
+    <aside className="w-64 bg-white border-r border-slate-200 h-screen sticky top-0 flex flex-col p-6 space-y-6 z-40">
+      <Link href="/" className="flex items-center space-x-3 font-bold text-2xl mb-2 hover:opacity-80 transition-opacity tracking-tight">
+        <div className="bg-blue-500 p-2 rounded-xl">
+          <Code2 className="text-white w-6 h-6" />
+        </div>
+        <span className="text-slate-900">AlgoViz</span>
       </Link>
 
       
-      <nav className="flex-1 space-y-4 overflow-y-auto custom-scrollbar pr-2">
+      <nav className="flex-1 space-y-8 overflow-y-auto custom-scrollbar pr-2">
         
         {/* SORTING SECTION */}
         <div>
           <Link href="/">
             <div className={cn(
-              "pt-2 pb-2 text-xs font-semibold uppercase flex items-center space-x-2 transition-colors",
-              isSortingRoute ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              "text-xs font-bold tracking-wider uppercase flex items-center space-x-2 transition-colors mb-3",
+              isSortingRoute ? "text-blue-600" : "text-slate-400 hover:text-slate-600"
             )}>
               <ArrowDownUp size={14} />
               <span>Sorting Algorithms</span>
@@ -47,16 +49,16 @@ export function Sidebar({ activeAlgorithm, onSelectAlgorithm }: SidebarProps) {
           </Link>
           
           {isSortingRoute && (
-            <div className="space-y-1 mt-1 pl-4 border-l-2 border-border/50 ml-2">
+            <div className="space-y-1">
               {algorithms.map((algo) => (
                 <button
                   key={algo.id}
                   onClick={() => onSelectAlgorithm?.(algo.id)}
                   className={cn(
-                    "w-full flex items-center space-x-2 p-2 rounded-lg transition-all text-left text-sm",
+                    "w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl transition-all text-left text-sm font-medium",
                     activeAlgorithm === algo.id
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "hover:bg-accent text-muted-foreground hover:text-foreground"
+                      ? "bg-blue-50 text-blue-700 shadow-sm"
+                      : "hover:bg-slate-50 text-slate-600 hover:text-slate-900"
                   )}
                 >
                   <span>{algo.name}</span>
@@ -70,8 +72,8 @@ export function Sidebar({ activeAlgorithm, onSelectAlgorithm }: SidebarProps) {
         <div>
           <Link href="/pathfinding">
             <div className={cn(
-              "pt-2 pb-2 text-xs font-semibold uppercase flex items-center space-x-2 transition-colors",
-              isPathfindingRoute ? "text-primary" : "text-muted-foreground hover:text-foreground"
+              "text-xs font-bold tracking-wider uppercase flex items-center space-x-2 transition-colors mb-3",
+              isPathfindingRoute ? "text-blue-600" : "text-slate-400 hover:text-slate-600"
             )}>
               <Network size={14} />
               <span>Graph / Pathfinding</span>
@@ -79,11 +81,11 @@ export function Sidebar({ activeAlgorithm, onSelectAlgorithm }: SidebarProps) {
           </Link>
 
           {isPathfindingRoute && (
-            <div className="space-y-1 mt-1 pl-4 border-l-2 border-border/50 ml-2">
-              <div className="w-full flex items-center space-x-2 p-2 rounded-lg bg-primary/10 text-primary font-medium text-sm">
-                <span>Breadth-First Search (BFS)</span>
+            <div className="space-y-1">
+              <div className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl bg-blue-50 text-blue-700 font-medium text-sm shadow-sm">
+                <span>Breadth-First Search</span>
               </div>
-              <div className="w-full flex items-center space-x-2 p-2 rounded-lg text-muted-foreground/50 text-sm cursor-not-allowed">
+              <div className="w-full flex items-center space-x-2 px-3 py-2.5 rounded-xl text-slate-400 text-sm cursor-not-allowed">
                 <span>DFS (Coming Soon)</span>
               </div>
             </div>
@@ -92,7 +94,7 @@ export function Sidebar({ activeAlgorithm, onSelectAlgorithm }: SidebarProps) {
 
         {/* TREES SECTION */}
         <div>
-          <div className="pt-2 pb-2 text-xs font-semibold uppercase text-muted-foreground flex items-center space-x-2 opacity-50">
+          <div className="text-xs font-bold tracking-wider uppercase text-slate-300 flex items-center space-x-2 mb-3">
             <ListTree size={14} />
             <span>Trees (Coming Soon)</span>
           </div>

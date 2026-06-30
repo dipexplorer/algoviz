@@ -9,15 +9,12 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children, activeAlgorithm, onSelectAlgorithm }: DashboardLayoutProps) {
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-black text-white relative">
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#00F0FF]/5 blur-[120px]"></div>
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#FF003C]/5 blur-[120px]"></div>
-      </div>
-      
+    <div className="flex min-h-screen w-full bg-slate-50 text-slate-900">
       <Sidebar activeAlgorithm={activeAlgorithm} onSelectAlgorithm={onSelectAlgorithm} />
-      <main className="flex-1 relative flex flex-col">
-        <div className="flex-1 p-8 overflow-auto relative custom-scrollbar z-10">
+      
+      {/* Main Content Area - Scrollable */}
+      <main className="flex-1 flex flex-col h-screen overflow-auto">
+        <div className="p-8 max-w-7xl mx-auto w-full">
           {children}
         </div>
       </main>

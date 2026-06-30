@@ -73,38 +73,32 @@ export default function PathfindingVisualizer() {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
-        if (node.isStart || node.isEnd) return;
-        const domNode = document.getElementById(`node-${node.row}-${node.col}`);
-        if (domNode) {
-          domNode.className = "w-6 h-6 border border-border/50 transition-colors bg-yellow-400 scale-105 rounded-sm shadow-[0_0_10px_rgba(250,204,21,0.8)]";
+        if (!node.isStart && !node.isEnd) {
+          const el = document.getElementById(`node-${node.row}-${node.col}`);
+          if (el) {
+            el.className = "w-6 h-6 border-r border-b border-slate-200 bg-amber-400 shadow-md scale-105 z-20 rounded-sm transition-all duration-200";
+          }
         }
       }, 30 * i);
     }
-    setTimeout(() => {
-      setIsRunning(false);
-    }, 30 * nodesInShortestPathOrder.length);
   };
 
   const animateAlgorithm = (visitedNodesInOrder: NodeType[], nodesInShortestPathOrder: NodeType[]) => {
-    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-      if (i === visitedNodesInOrder.length) {
+    for (let i = 0; i < visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length - 1) {
         setTimeout(() => {
           animateShortestPath(nodesInShortestPathOrder);
+          setIsRunning(false);
         }, 10 * i);
         return;
       }
       setTimeout(() => {
         const node = visitedNodesInOrder[i];
-        if (node.isStart || node.isEnd) return;
-        const domNode = document.getElementById(`node-${node.row}-${node.col}`);
-        if (domNode) {
-          // Add a custom animation class here for the "ripple" effect
-          domNode.className = "w-6 h-6 border border-border/50 bg-primary/40 rounded-full scale-90 transition-all duration-300";
-          
-          // Shortly after, expand it to fill the cell for a cool trailing effect
-          setTimeout(() => {
-            domNode.className = "w-6 h-6 border border-border/50 bg-primary/20 transition-all duration-500";
-          }, 150);
+        if (!node.isStart && !node.isEnd) {
+          const el = document.getElementById(`node-${node.row}-${node.col}`);
+          if (el) {
+            el.className = "w-6 h-6 border-r border-b border-blue-300 bg-blue-200 shadow-sm transition-all duration-200";
+          }
         }
       }, 10 * i);
     }
@@ -114,8 +108,6 @@ export default function PathfindingVisualizer() {
     if (isRunning) return;
     setIsRunning(true);
     
-    // Clear previous visual paths (we do this by resetting the grid state to clear walls, OR we just reset the DOM classes)
-    // To be clean, we should reset the grid state but KEEP walls.
     const cleanGrid = grid.map(row => row.map(node => ({
       ...node,
       isVisited: false,
@@ -124,11 +116,10 @@ export default function PathfindingVisualizer() {
       previousNode: null
     })));
     
-    // Reset DOM classes manually before starting to ensure clean state without full re-render
     cleanGrid.forEach(row => row.forEach(node => {
         if (!node.isStart && !node.isEnd && !node.isWall) {
             const domNode = document.getElementById(`node-${node.row}-${node.col}`);
-            if (domNode) domNode.className = "w-6 h-6 border border-border/50 transition-colors bg-background";
+            if (domNode) domNode.className = "w-6 h-6 border-r border-b border-slate-200 bg-white hover:bg-slate-100 transition-all duration-200";
         }
     }));
     
@@ -145,31 +136,30 @@ export default function PathfindingVisualizer() {
     if (isRunning) return;
     const newGrid = createInitialGrid();
     setGrid(newGrid);
-    // Force DOM reset
     newGrid.forEach(row => row.forEach(node => {
         if (!node.isStart && !node.isEnd) {
             const domNode = document.getElementById(`node-${node.row}-${node.col}`);
-            if (domNode) domNode.className = "w-6 h-6 border border-border/50 transition-colors bg-background";
+            if (domNode) domNode.className = "w-6 h-6 border-r border-b border-slate-200 bg-white hover:bg-slate-100 transition-all duration-200";
         }
     }));
   };
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col h-full relative" onMouseLeave={handleMouseUp}>
-        <header className="mb-6 flex justify-between items-start">
+      <div className="flex flex-col gap-6 pb-20" onMouseLeave={handleMouseUp}>
+        <header className="flex justify-between items-center mb-2">
           <div>
-            <h1 className="text-4xl font-bold tracking-tight text-white drop-shadow-md">Breadth-First Search</h1>
-            <p className="text-white/60 mt-2 max-w-2xl flex items-center space-x-2 text-lg">
-              <MousePointer2 size={18} className="text-[#00F0FF]"/> 
+            <h1 className="text-4xl font-bold tracking-tight text-slate-900 mb-2">Breadth-First Search</h1>
+            <p className="text-slate-500 max-w-2xl text-lg flex items-center space-x-2">
+              <MousePointer2 size={18} className="text-blue-500"/> 
               <span>Click and drag on the grid to draw walls.</span>
             </p>
           </div>
-          <div className="flex space-x-4">
+          <div className="flex space-x-3">
             <button 
               onClick={clearBoard}
               disabled={isRunning}
-              className="px-5 py-2.5 glass-panel text-white/70 hover:text-white rounded-lg hover:bg-white/5 transition-all flex items-center space-x-2 disabled:opacity-50"
+              className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 font-medium rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm flex items-center space-x-2 disabled:opacity-50"
             >
               <RotateCcw size={18} />
               <span>Clear Grid</span>
@@ -177,7 +167,7 @@ export default function PathfindingVisualizer() {
             <button 
               onClick={visualizeBFS}
               disabled={isRunning}
-              className="px-6 py-2.5 bg-[#00F0FF] text-black font-bold rounded-lg hover:bg-[#00F0FF]/90 transition-all glow-cyan flex items-center space-x-2 disabled:opacity-50"
+              className="px-6 py-2.5 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition-all shadow-md shadow-blue-500/20 flex items-center space-x-2 disabled:opacity-50"
             >
               <Play size={18} />
               <span>Run BFS</span>
@@ -186,21 +176,19 @@ export default function PathfindingVisualizer() {
         </header>
 
         {/* Legend */}
-        <div className="flex space-x-8 mb-6 p-4 glass-card rounded-xl border-white/5">
-          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#39FF14] glow-lime rounded-sm"></div><span className="text-sm font-medium text-white/80">Start</span></div>
-          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#FF003C] glow-magenta rounded-sm"></div><span className="text-sm font-medium text-white/80">Target</span></div>
-          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#111] border border-[#333] shadow-inner rounded-sm"></div><span className="text-sm font-medium text-white/80">Wall</span></div>
-          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#00F0FF]/30 border border-[#00F0FF]/50 rounded-sm"></div><span className="text-sm font-medium text-white/80">Visited</span></div>
-          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-[#FFD700] glow-yellow rounded-sm"></div><span className="text-sm font-medium text-white/80">Shortest Path</span></div>
+        <div className="flex space-x-8 p-4 bento-card bg-white items-center">
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-emerald-500 rounded-lg"></div><span className="text-sm font-semibold text-slate-600">Start</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-red-500 rounded-lg"></div><span className="text-sm font-semibold text-slate-600">Target</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-slate-800 rounded-lg shadow-inner"></div><span className="text-sm font-semibold text-slate-600">Wall</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-blue-200 border border-blue-300 rounded-lg"></div><span className="text-sm font-semibold text-slate-600">Visited</span></div>
+          <div className="flex items-center space-x-3"><div className="w-5 h-5 bg-amber-400 rounded-lg"></div><span className="text-sm font-semibold text-slate-600">Shortest Path</span></div>
         </div>
 
         {/* Grid Container */}
-        <div className="flex-1 overflow-hidden glass-card rounded-3xl p-6 flex items-center justify-center relative shadow-2xl border-white/5">
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] z-0"></div>
-            
+        <div className="bento-card bg-white p-6 flex flex-col items-center justify-center min-h-[500px]">
             <div 
               ref={gridRef}
-              className="grid gap-0 z-10 p-2 glass-panel rounded-xl border border-white/10 shadow-[0_0_50px_rgba(0,240,255,0.05)]"
+              className="grid gap-0 p-2 bg-slate-50 rounded-2xl border border-slate-200 shadow-inner"
               style={{ gridTemplateColumns: `repeat(${NUM_COLS}, minmax(0, 1fr))` }}
             >
               {grid.map((row, rowIdx) => (
