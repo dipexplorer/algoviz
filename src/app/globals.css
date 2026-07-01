@@ -2,43 +2,29 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-heading: var(--font-outfit);
   --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,92 +35,57 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* Slate-50 Background #F8FAFC */
+  --background: oklch(0.985 0.002 247.839);
+  /* Slate-900 Foreground #0F172A */
+  --foreground: oklch(0.21 0.034 265);
+  
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.21 0.034 265);
+  
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --color-background: oklch(0 0 0);
-  --color-foreground: 0 0% 98%;
-  --color-primary: 188 100% 50%;
-  --color-primary-foreground: 240 10% 4%;
-  --color-secondary: 240 10% 10%;
-  --color-secondary-foreground: 0 0% 98%;
-  --color-accent: 188 100% 50%;
-  --color-accent-foreground: 240 10% 4%;
-  --color-destructive: 345 100% 50%;
-  --color-destructive-foreground: 0 0% 98%;
-  --color-border: 240 10% 16%;
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  --popover-foreground: oklch(0.21 0.034 265);
+  
+  /* Blue-500 Primary #3B82F6 */
+  --primary: oklch(0.623 0.165 259);
+  --primary-foreground: oklch(0.985 0.002 247.839);
+  
+  --secondary: oklch(0.968 0.007 247.896);
+  --secondary-foreground: oklch(0.21 0.034 265);
+  
+  /* Slate-500 Muted #64748B */
+  --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.551 0.027 264.364);
+  
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.21 0.034 265);
+  
+  --destructive: oklch(0.637 0.237 25.331);
+  --destructive-foreground: oklch(0.985 0.002 247.839);
 
-@layer base {
-  :root {
-    --background: 210 40% 98%; /* Soft slate-50 background #F8FAFC */
-    --foreground: 222.2 84% 4.9%; /* Deep slate-900 text #0F172A */
-    
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 222.2 84% 4.9%;
-    
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    
-    --primary: 217 91% 60%; /* Blue-500 #3B82F6 */
-    --primary-foreground: 210 40% 98%;
-    
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%; /* Slate-500 */
-    
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    
-    --destructive: 0 84.2% 60.2%; /* Red-500 */
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%; /* Slate-200 */
-    --input: 214.3 31.8% 91.4%;
-    --ring: 217 91% 60%;
-    
-    --radius: 1rem; /* Generous rounded corners for Bento look */
-  }
+  /* Slate-200 Border #E2E8F0 */
+  --border: oklch(0.92 0.01 254.9);
+  --input: oklch(0.92 0.01 254.9);
+  --ring: oklch(0.623 0.165 259);
+  
+  --radius: 1rem;
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: var(--font-inter), sans-serif;
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-outfit), sans-serif;
+    font-family: var(--font-heading);
   }
   code, pre, .font-mono {
-    font-family: var(--font-jetbrains-mono), monospace;
+    font-family: var(--font-mono);
   }
 }
 

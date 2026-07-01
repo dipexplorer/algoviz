@@ -9,8 +9,6 @@ interface AlgorithmInfoProps {
 export function AlgorithmInfo({ algorithm }: AlgorithmInfoProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6 pb-8">
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Time Complexity Card */}
       <div className="bento-card p-6 flex flex-col">
         <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
