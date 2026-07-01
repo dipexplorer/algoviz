@@ -13,7 +13,7 @@ export function AlgorithmInfo({ algorithm }: AlgorithmInfoProps) {
       <div className="bento-card p-6 flex flex-col">
         <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
           <Clock size={20} className="text-blue-500" />
-          <h3 className="text-lg tracking-wide uppercase text-sm">Time Complexity</h3>
+          <h3 className="tracking-wide uppercase text-sm">Time Complexity</h3>
         </div>
         <div className="space-y-4 flex-1">
           <div className="flex justify-between items-center border-b border-slate-100 pb-3">
@@ -35,7 +35,7 @@ export function AlgorithmInfo({ algorithm }: AlgorithmInfoProps) {
       <div className="bento-card p-6 flex flex-col">
         <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
           <HardDrive size={20} className="text-blue-500" />
-          <h3 className="text-lg tracking-wide uppercase text-sm">Space Complexity</h3>
+          <h3 className="tracking-wide uppercase text-sm">Space Complexity</h3>
         </div>
         <div className="space-y-4 flex-1">
           <div className="flex justify-between items-center pb-3 border-b border-slate-100">
@@ -52,7 +52,7 @@ export function AlgorithmInfo({ algorithm }: AlgorithmInfoProps) {
       <div className="bento-card p-6 md:col-span-1 flex flex-col">
         <div className="flex items-center space-x-2 text-slate-800 font-bold mb-4">
           <Code2 size={20} className="text-blue-500" />
-          <h3 className="text-lg tracking-wide uppercase text-sm">Implementation</h3>
+          <h3 className="tracking-wide uppercase text-sm">Implementation</h3>
         </div>
         <div className="flex-1 overflow-auto bg-slate-50 border border-slate-200 p-5 rounded-2xl custom-scrollbar shadow-inner">
           <pre className="text-sm font-mono text-slate-700 leading-relaxed">
